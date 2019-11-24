@@ -1,0 +1,362 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title> Cadastro </title>
+        <link rel="icon"       type="image/x-icon" href="/favicon.ico" >
+        <link rel="stylesheet" type="text/css"     href="/plugin/bootstrap/css/bootstrap.min.css"> 
+        <link rel="stylesheet" type="text/css"     href="/plugin/datatable/css/jquery.dataTables.min.css"> 
+        <link rel="stylesheet" type="text/css"     href="/plugin/fontawesome/css/all.css"> 
+    </head>
+    <body>
+        <div class="container">
+            <div class="row mb-3 mt-3">
+                <div class="col-12 d-flex justify-content-center">
+                    <h3>Cadastro</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                    <h4>Inserir Cadastro</h4>
+                </div>
+            </div>
+            <div class="row" id="row-inserir-cadastro">
+                <div class="col-12 ">
+                    <form name="form_inserir_cadastro" id="form_inserir_cadastro" >
+                        <div class="row form-group">
+                            <div class="col-4">
+                                <label for="inserir_cadastro_nome">Nome</label>
+                                <input type="text" id="inserir_cadastro_nome" class="form-control" >
+                            </div>
+                            <div class="col-3">
+                                <label for="inserir_cadastro_endereco">Endereço</label>
+                                <input type="text" id="inserir_cadastro_endereco" class="form-control" >
+                            </div>
+                            <div class="col-2">
+                                <label for="inserir_cadastro_telefone">Telefone</label>
+                                <input type="text" id="inserir_cadastro_telefone" class="form-control" >
+                            </div>
+                            <div class="col-3">
+                                <label for="inserir_cadastro_email">E-Mail</label>
+                                <input type="text" id="inserir_cadastro_email" class="form-control" >
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-4">
+                                <button type="button" class="btn btn-outline-primary" id="btn_inserir_cadastro">Inserir</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                    <h4>Cadastros Inseridos</h4>
+                </div>
+            </div>
+            <div class="row" id="row-datatable-cadastro">
+                <div class="col-12 "> 
+                    <table id="datatable-cadastro" class="table-hover table-striped" width="100%">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <strong>ID</strong>
+                                </td>
+                                <td>
+                                    <strong>NOME</strong>
+                                </td>
+                                <td>
+                                    <strong>ENDEREÇO</strong>
+                                </td>
+                                <td>
+                                    <strong>TELEFONE</strong>
+                                </td>
+                                <td>
+                                    <strong>E-MAIL</strong>
+                                </td>
+                                <td>
+                                    <strong>AÇÕES</strong>
+                                </td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <!-- Definição Modal Para Alterar Cadastro -->
+            <div class='modal fade ' id='modal-alterar-cadastro' tabindex='-1' data-keyboard='false' role='dialog' aria-labelledby='ModalLabel' aria-hidden='true' data-backdrop='static' >
+                <div class='modal-dialog modal-lg'>
+                    <div class='modal-content'>
+                        <div class='modal-header'>
+                            <h5 class='modal-title' >Alterar Cadastro</h5>
+                        </div>
+                        <div class='modal-body'>
+                            <div class='row ' id='row-modal-content'>
+                                <div class='col-sm-12'>
+                                    <form name='form_alterar_cadastro' id='form_alterar_cadastro' >
+                                        <div class='row form-group'>
+                                            <div class="col-7">
+                                                <label for='alterar_cadastro_nome'>Nome</label>
+                                                <input type='text' id='alterar_cadastro_nome' class='form-control' >
+                                            </div>
+                                            <div class='col-5'>
+                                                <label for='alterar_cadastro_endereco'>Endereço</label>
+                                                <input type='text' id='alterar_cadastro_endereco' class='form-control' >
+                                            </div>
+                                        </div>
+                                        <div class='row form-group'>
+                                            <div class='col-5'>
+                                                <label for='alterar_cadastro_telefone'>Telefone</label>
+                                                <input type='text' id='alterar_cadastro_telefone' class='form-control' >
+                                            </div>
+                                            <div class='col-7'>
+                                                <label for='alterar_cadastro_email'>E-Mail</label>
+                                                <input type='text' id='alterar_cadastro_email' class='form-control' >
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='modal-footer'>
+                            <div class='row ' id='row-footer-modal'>
+                                <div class='col-sm-12'>
+                                    <button type='button' class='btn btn-secondary btn-close ' data-dismiss='modal' id='btn-modal-alterar-cadastro-cancelar'>Cancelar</button>
+                                    &nbsp;
+                                    <button type='button' class='btn btn-info btn-ok ' id='btn-modal-alterar-cadastro'>Alterar</button>
+                                </div>    
+                            </div>    
+                        </div>    
+                    </div>
+                </div>
+            </div>
+            <!-- Fim Definição Modal Para Alterar Cadastro -->
+        </div>
+    </body>
+    <script type="text/javascript" src="/plugin/jquery/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/plugin/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/plugin/datatable/js/jquery.dataTables.min.js"></script>
+  
+    <script type="text/javascript">
+        //Aguarda toda a pagina carregar para executar
+        jQuery(document).ready(function(){
+
+            //Chama função para gerar dataTable Cadastros ao carregar a página
+            geraDataTableCadastro(); 
+        
+            //Evento de click no botão "Inserir", chamando a função para inserir o cadastro
+            $("#btn_inserir_cadastro").on("click", function(e){
+                e.preventDefault();
+                inserirCadastro();
+            });
+        });
+
+
+        function geraDataTableCadastro(){
+            //Definindo a variavel da dataTable
+            dataTableCadastro = $('#datatable-cadastro').DataTable({ 
+                //Requisição ajax
+                "ajax": {
+                     //URL de requisição
+                    "url"  : "Funcoes.php",
+
+                    //Método de requisição
+                    "type" : "GET",
+                    
+                    //Parametros que serão enviados para Funcoes.php
+                    "data" : {
+                        "op" : "1" //Op 1 = Opção para listar os cadastros em Funcoes.php
+                    },
+
+                    //Nome do item do objeto onde estarão os dados retornados da consulta
+                    'dataSrc' : '',
+                },
+
+                //Colunas da tabela, com nomes retornados da requisição
+                "aoColumns": [
+                    { "mData": "id"},
+                    { "mData": "nome"},
+                    { "mData": "endereco"},
+                    { "mData": "telefone"},
+                    { "mData": "email"},
+                    //Campos que não retornam da requisição devem ser defindos como null
+                    { "mData": null, "className": "d-flex justify-content-center", "orderable": false, //orderable false = campo não recebe função de ordenação
+                        //Render define o que será exibido nessa coluna
+                        'render': function(full){
+                            return "<a class = 'cadastro-alterar' title='Alterar Cadastro'> <i class='fa fa-edit'></i> </a> &nbsp;&nbsp;&nbsp;&nbsp; "+
+                            "<a class = 'cadastro-excluir' title='Excuir Cadastro'> <i class='fa fa-trash-alt'></i> </a>";
+                        }
+                    } 
+                ],
+
+                //Opcional, caminho do json com idioma da tabela
+                "language" : {'url': '/plugin/datatable/language/Portuguese-Brasil.json'}
+            });
+
+            //Evento de click em "Alterar Cadastro", definido no render pela classe "cadastro-alterar", chamando a função para alterar cadastro
+            dataTableCadastro.on('click', '.cadastro-alterar', function(){
+
+                //Armazena na variavel "dados" todas as informações da linha onde ocorreu o click
+                var dados = dataTableCadastro.row($(this).parents('tr')).data();
+
+                //Exibe no console todas as informações armazenadas na variavel dados
+                console.log(dados);
+
+                //Chama função alterar cadastro, pasando a variavel dados
+                alterarCadastro(dados); 
+            });
+
+            //Evento de click em "Excluir Cadastro", definido no render pela classe "cadastro-excluir", chamando a função para excluir cadastro
+            dataTableCadastro.on('click', '.cadastro-excluir', function(){
+
+                //Armazena na variavel "dados" todas as informações da linha onde ocorreu o click
+                var dados = dataTableCadastro.row($(this).parents('tr')).data();
+
+                //Exibe no console todas as informações armazenadas na variavel dados
+                console.log(dados);
+
+                //Chama função excluir cadastro, pasando apenas o parâmetro "id" armazenado na variavel dados
+                excluirCadastro(dados.id); 
+            });
+        }
+
+
+        function inserirCadastro(){
+            $.ajax({
+                //URL de requisição
+                "url"    : "Funcoes.php",
+
+                //Método de requisição
+                "method" : "GET",
+
+                //Parametros que serão enviados para Funcoes.php
+                "data": {
+                    "op"       : "2", //Op 2 = Opção para Inserir em Funcoes.php
+                    "nome"     : $("#inserir_cadastro_nome").val(),
+                    "endereco" : $("#inserir_cadastro_endereco").val(),
+                    "telefone" : $("#inserir_cadastro_telefone").val(),
+                    "email"    : $("#inserir_cadastro_email").val()
+                },
+
+                //Tipo de retorno definido em Funcoes.php
+                "dataType": "json",
+
+                //função a ser executada em caso de sucesso (variavel data = dados retornados do servidor)
+                "success": function(data){
+                    //Recarrega dataTable Cadastro, para exibir o novo cadastro inserido
+                    dataTableCadastro.ajax.reload(null,false);
+
+                    //Exibe a mensagem retornada por Funcoes.php (Item definido = info)
+                    alert(data.info);
+
+                    //Exibe no console tudo o que Funcoes.php retornou
+                    console.log(data);
+                    
+                    //Chama função para limpar os campos após a inserção
+                    limpaCamposCadastro();
+
+                    //Define o foco para o campo nome
+                    $("#inserir_cadastro_nome").focus();
+                }
+            }); 
+        }
+
+        
+        function alterarCadastro(dados){
+            //Define os campos do modal de alteração com os dados informados no parametro
+            $("#alterar_cadastro_nome").val(dados.nome);
+            $("#alterar_cadastro_endereco").val(dados.endereco);
+            $("#alterar_cadastro_telefone").val(dados.telefone);
+            $("#alterar_cadastro_email").val(dados.email);
+
+            //Exibe modal de alteração de cadastro
+            $('#modal-alterar-cadastro').modal('show');
+
+            //Define o foco para o campo nome após exibir o modal
+            $('#modal-alterar-cadastro').on('shown.bs.modal', function () {
+                $('#alterar_cadastro_nome').focus();
+            });
+
+            //Remove o evento de click no botão "Alterar" do modal de alteração, para que o evento não se repita caso a função seja executada mais de uma vez
+            $("#btn-modal-alterar-cadastro").off('click');
+
+            //Evento de click no botão "Alterar" do modal de alteração, executando o ajax para alteração
+            $("#btn-modal-alterar-cadastro").on('click', function(e){
+                e.preventDefault();
+                $.ajax({
+                    //URL de requisição
+                    "url"    : "Funcoes.php",
+
+                    //Método de requisição
+                    "method" : "GET",
+
+                    //Parametros que serão enviados para Funcoes.php
+                    "data": {
+                        "op"       : "3", //Op 3 = Opção para Alterar em Funcoes.php,
+                        "id"       : dados.id, //Id do cadastro a alterar
+                        "nome"     : $("#alterar_cadastro_nome").val(),
+                        "endereco" : $("#alterar_cadastro_endereco").val(),
+                        "telefone" : $("#alterar_cadastro_telefone").val(),
+                        "email"    : $("#alterar_cadastro_email").val()
+                    },
+
+                    //Tipo de retorno definido em Funcoes.php
+                    "dataType": "json",
+
+                    //função a ser executada em caso de sucesso (variavel data = dados retornados do servidor)
+                    "success": function(data){
+                        //Recarrega dataTable Cadastro, para exibir o cadastro alterado
+                        dataTableCadastro.ajax.reload(null,false);
+
+                        //Exibe a mensagem retornada por Funcoes.php (Item definido = info)
+                        alert(data.info);
+
+                        //Fecha o modal de alteração de cadastro
+                        $('#modal-alterar-cadastro').modal('hide');
+                    }
+                }); 
+
+
+            });
+        }
+
+        
+        function excluirCadastro(cadastro_id){
+            //Abre janela de confirmação padrão do javascrip com a mensagem definida, caso positivo executa o ajax para exclusão
+            if (confirm("Tem certeza que deseja excluir o cadastro?")){   
+                $.ajax({
+                    //URL de requisição
+                    "url"    : "Funcoes.php",
+
+                    //Método de requisição
+                    "method" : "GET",
+
+                    //Parametros que serão enviados para Funcoes.php
+                    "data": {
+                        "op"     : "4", //Op 4 = Opção para Excluir em Funcoes.php
+                        "id"     : cadastro_id //id do cadastro
+                    },
+
+                    //Tipo de retorno definido em Funcoes.php
+                    "dataType": "json",
+
+                    //função a ser executada em caso de sucesso (variavel data = dados retornados da requisição)
+                    "success": function(data){
+                        //Recarrega dataTable Cadastro, para não constar o registro excluido
+                        dataTableCadastro.ajax.reload(null,false);
+
+                        //Exibe a mensagem retornada por Funcoes.php (Item definido = info)
+                        alert(data.info);
+                    }
+                });
+            }
+        }
+
+       
+        function limpaCamposCadastro(){
+            $("#form_inserir_cadastro").trigger("reset");
+        }
+
+    </script>
+</html>
